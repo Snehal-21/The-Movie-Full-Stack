@@ -22,14 +22,15 @@ const Navbar = () => {
         const data = await response.data;
         if (data.results.length > 0) {
             setMovieData(data.results);
-            setButton((x) => !x);
+            
 
         }
+        setButton((x) => !x);
     }
 
     return (
         <>
-            <nav className='h-16 w-full bg-slate-800 flex justify-around'>
+            <nav className='h-16 w-full bg-gray-900 flex justify-around'>
                 <div className='w-[10%] h-full  flex justify-center items-center text-white text-lg cursor-pointer' onClick={() => router('/')}><p>MovieDb</p></div>
                 <div className='w-[40%]  h-full flex justify-between items-center text-gray-600 text-lg'>
                     <p className='cursor-pointer' onClick={() => router('/')}>Popular</p>

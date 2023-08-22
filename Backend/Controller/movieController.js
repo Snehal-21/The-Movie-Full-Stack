@@ -42,3 +42,26 @@ export const serchMovie=async(req,res)=>{
         return res.status(400).json({status:400,message:"Internal server error"});
     }
 }
+
+export const  getcastDetail=async(req,res)=>{
+    try {
+        const {id}=req.body;
+        const getData=await axios.get(`https://api.themoviedb.org/3/movie/${id}/credits?api_key=${Api_Key}&language=en-US`);
+        const data=await getData.data;
+        return res.status(200).json(data);
+        
+    } catch (error) {
+       
+    }
+}
+
+export const getMovieDetail=async(req,res)=>{
+    try {
+        const {id}=req.body;
+        const getDetail=await axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${Api_Key}&language=en-US`);
+        const data=await getDetail.data;
+        return res.status(200).json(data);
+    } catch (error) {
+        return res.status(400).json({status:400,message:"Internal server error"});
+    }
+}

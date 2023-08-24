@@ -1,14 +1,18 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import '@splidejs/splide/dist/css/themes/splide-default.min.css';
-import { AutoScroll } from '@splidejs/splide-extension-auto-scroll';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay, A11y } from "swiper/modules";
 
-// import broken from "../Assets/animation_llmd8o3i_small.gif"
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/autoplay";
+
 
 const Single = () => {
     const [cast, setCast] = useState();
+    const [Crew,setCrew]=useState();
     const [movieDetail, setMovieDetail] = useState();
     const { id } = useParams();
     useEffect(() => {
@@ -18,6 +22,7 @@ const Single = () => {
             });
             const data = await response.data;
             setCast(data.cast);
+            setCrew(data.crew);
 
             const movieResponse = await axios.post("http://localhost:4000/movie/getMovieDetail", {
                 id
@@ -29,16 +34,7 @@ const Single = () => {
         }
         castDetail();
 
-        // new Splide( '.splide' ).mount( { AutoScroll } );
-        const splide = new Splide('.splide', {
-            type: 'loop',
-            drag: 'free',
-            focus: 'center',
-            perPage: 6,
-        });
 
-        // Add the Autoplay plugin
-        splide.mount({ AutoScroll });
 
     }, [id]);
     console.log(cast);
@@ -66,7 +62,7 @@ const Single = () => {
                                     <div className="h-[30px] w-full flex mb-3">
                                         <div className="h-full w-[60px] mr-3 border-slate-500 border rounded-md text-white text-xs flex justify-center items-center">{movieDetail?.runtime} min</div>
                                         {movieDetail?.genres && movieDetail?.genres.map((genres, i) => (
-                                            <div className="pl-2" key={i}><p className="text-white">{genres.name}, </p></div>
+                                            <div className="pl-2" key={i}><p className="text-white">{genres.name}{ i !== movieDetail?.genres.length - 1 ? ", " : ""} </p></div>
                                         ))}
                                     </div>
                                     <p className="text-white text-base">Release Date : {movieDetail?.release_date}</p>
@@ -84,29 +80,48 @@ const Single = () => {
                     <div className=" w-[98%] m-auto rounded-xl p-2">
                         <p className="text-white text-xl mb-5">Cast</p>
                         <div className=" flex w-full">
-                            <div className=" w-full justify-start ">
-                                <Splide options={{
-                                    type   : 'loop',
-                                    drag   : 'free',
-                                    focus  : 'center',
-                                    perPage: 6,
-                                    autoScroll: {
-                                      speed: 1,
-                                    },
-                                }}>
+                            <div className=" w-full justify-start flex flex-wrap">
+                                <Swiper
+                                    modules={[Autoplay, Navigation, Pagination, A11y]}
+                                    spaceBetween={40}
+                                    slidesPerView={6}
+                                    autoplay={{ delay: 1000 }}
+                                    navigation
+                                >
                                     {cast && cast?.map((e, i) => (
-                                        <SplideSlide key={i}>
-                                            <div className="h-[300px] w-[190px] mr-5 mb-7">
-                                                <img
-                                                    className="w-full h-[85%]"
-                                                    src={`https://image.tmdb.org/t/p/w500${e?.profile_path}`} onError={imageOnError}
-                                                    alt=""
-                                                />
-                                                <p className="text-white text-center mt-2">{e?.name}</p>
-                                            </div>
-                                        </SplideSlide>
+                                        <SwiperSlide key={i} >
+                                            <img className="w-full h-[70%]" src={`https://image.tmdb.org/t/p/w500${e?.profile_path}`} onError={imageOnError} alt="" />
+                                            <p className="text-white text-center mt-2 h-[40px]">{e?.name}</p>
+                                        </SwiperSlide>
                                     ))}
-                                </Splide>
+
+                                </Swiper>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div className=" w-[98%] m-auto rounded-xl p-2">
+                        <p className="text-white text-xl mb-5">Crew</p>
+                        <div className=" flex w-full">
+                            <div className=" w-full justify-start flex flex-wrap">
+                                <Swiper
+                                    modules={[Autoplay, Navigation, Pagination, A11y]}
+                                    spaceBetween={40}
+                                    slidesPerView={6}
+                                    autoplay={{ delay: 1000 }}
+                                    navigation
+                                >
+                                    {Crew && Crew?.map((e, i) => (
+                                        <SwiperSlide key={i} >
+                                            <img className="w-full h-[70%]" src={`https://image.tmdb.org/t/p/w500${e?.profile_path}`} onError={imageOnError} alt="" />
+                                            <p className="text-white text-center mt-2 h-[40px]">{e?.name}</p>
+                                        </SwiperSlide>
+                                    ))}
+
+                                </Swiper>
+
                             </div>
                         </div>
                     </div>
@@ -116,10 +131,3 @@ const Single = () => {
     )
 }
 export default Single;
-
-// {cast && cast?.map((e, i) => (
-//     <div key={i} className="h-[300px] w-[190px] mr-5">
-//         <img className="w-full h-[85%]" src={`https://image.tmdb.org/t/p/w500${e?.profile_path}`} onError={imageOnError} alt="" />
-//         <p className="text-white text-center mt-2">{e?.name}</p>
-//     </div>
-// ))}

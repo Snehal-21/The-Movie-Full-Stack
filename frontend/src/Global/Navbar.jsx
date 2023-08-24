@@ -38,7 +38,9 @@ const Navbar = () => {
                     <p className='cursor-pointer' onClick={() => router('/upcoming')}>Upcoming</p>
                     <input onChange={handleChange} className='h-[60%] pl-5 rounded-lg' name="movie" type="text" placeholder="Movie Name" />
                     <button onClick={handleClick} className='h-[60%] w-28 bg-slate-600 text-white rounded-lg cursor-pointer'>Search</button>
+                    <button className='text-cyan-500'>Sign IN</button>
                 </div>
+                
 
             </nav>
             {/* <div className='h-auto w-[400px] bg-slate-900 fixed z-10 right-48 rounded-lg'></div> */}

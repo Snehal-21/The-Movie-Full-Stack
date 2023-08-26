@@ -8,8 +8,6 @@ import Popular from './Components/Popular';
 import Upcoming from './Components/Upcoming';
 import TopRated from './Components/TopRated';
 import Single from './Components/Single';
-import Register from './Components/Register';
-import LoginF from './Components/LoginF';
 
 
 function App() {
@@ -24,8 +22,6 @@ function App() {
       <Route exact path="/upcoming" element={<Upcoming />} />
       <Route exact path="/toprated" element={<TopRated />} />
       <Route exact path="/single/:id" element={<Single />} />
-      <Route exact path='/register' element={<Register />} />
-      <Route exact path="/login" element={<LoginF />} />
 
     </Routes>
    </>

@@ -14,7 +14,7 @@ const Upcoming = () => {
     console.log(upcoming);
   return (
     <>
-        <div className='bg-slate-900 pt-10' style={{display:'flex',flexWrap:'wrap',justifyContent:'space-evenly'}}>
+        <div className='bg-slate-900 pt-20' style={{display:'flex',flexWrap:'wrap',justifyContent:'space-evenly'}}>
         {upcoming && upcoming.map((movie,i)=>(
             <div key={i} style={{width:'18%',height:'400px',marginBottom:'10px',marginRight:'1px',textAlign:'center'}}>
                 <img style={{height:'300px',width:'100%',marginBottom:'20px',objectFit:'cover'}} src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="" />

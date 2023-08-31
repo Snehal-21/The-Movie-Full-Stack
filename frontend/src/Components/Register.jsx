@@ -6,7 +6,7 @@ import LoginF from './LoginF';
 const Register = ({onClose}) => {
   const[userData,setUserData]=useState({name:"",email:"",password:"",confirmpassword:""});
   const [login,setLogin]=useState(false);
-
+console.log(login);
   const redirectToLogin=()=>{
     setLogin((x)=>!x);
   }
@@ -39,7 +39,7 @@ const Register = ({onClose}) => {
   }
   return (
     <>
-    <div className='fixed h-[450px] w-[25%] z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-950 rounded-xl p-3'>
+    <div className='fixed h-[450px] w-[25%] z-50 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-950 rounded-xl p-3'>
       <form className='w-full pl-5 pt-5' onSubmit={handleSubmit}>
       <svg className="cursor-pointer w-[20px] h-[20px] fixed z-30 right-[35px] top-[30px]" onClick={onClose} xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="#fafafa" viewBox="0 0 256 256"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"></path></svg>
         <label className='text-white text-xs'>Name</label><br/>

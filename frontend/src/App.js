@@ -22,7 +22,6 @@ function App() {
       <Route exact path="/upcoming" element={<Upcoming />} />
       <Route exact path="/toprated" element={<TopRated />} />
       <Route exact path="/single/:id" element={<Single />} />
-
     </Routes>
    </>
   );

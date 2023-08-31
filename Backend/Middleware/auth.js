@@ -1,3 +1,6 @@
+import User from "../models/user.js";
+import bcrypt from "bcrypt";
+
 export const registerChecks=async(req,res,next)=>{
     try {
         const {name,email,password,confirmpassword}=req.body;
@@ -14,3 +17,21 @@ export const registerChecks=async(req,res,next)=>{
     }
 }
 
+export const loginChecks=async(req,res,next)=>{
+    try {
+        const {email,password}=req.body;
+        if(!email) return res.status(400).json({status:400,success:false,message:"User Email is required."});
+        if(!password) return res.status(400).json({status:400,success:false,message:"User Password is required."});
+
+        const checkUser=await User.findOne({email}).exec();
+        if(!checkUser) return res.status(404).json({status:404,success:false,message:"User not found"});
+
+        const decPass=await bcrypt.compare(password,checkUser.password);
+
+        if(!decPass) return res.status(400).json({status:400,success:false,message:"Incorrect Credentials"});
+        next();
+
+    } catch (error) {
+        return res.status(500).json({status:500,success:false,message:"Internal server errorr",error:error})
+    }
+}

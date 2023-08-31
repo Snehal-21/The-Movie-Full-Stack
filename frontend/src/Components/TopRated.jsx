@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 const TopRated = () => {
     const[topRated,setTopRated]=useState();
+    
     useEffect(()=>{
         async function topRatedData(){
             const response=await axios.get('http://localhost:4000/movie/getTopRated');

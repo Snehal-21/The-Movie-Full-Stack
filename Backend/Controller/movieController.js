@@ -3,7 +3,8 @@ import axios from "axios";
 const Api_Key="c45a857c193f6302f2b5061c3b85e743";
 export const getMovie=async(req,res)=>{
     try {
-        const getData=await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${Api_Key}&language=en-US`);
+        const {page}=req.body;
+        const getData=await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${Api_Key}&language=en-US&page=${page}`);
         const data=getData.data;
         return res.status(200).json(data);
 
@@ -66,3 +67,13 @@ export const getMovieDetail=async(req,res)=>{
     }
 }
 
+// export const getMoviePage=async(req,res)=>{
+//     try{
+//         const {page}=req.body;
+//         const getPage=await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${Api_Key}&language=en-US&page=${page}`);
+//         const data=getPage.data;
+//         return res.status(200).json(data);
+//     }catch(error){
+//         return res.status(400).json({status:400,success:false,message:"Internal server error."});
+//     }
+// }

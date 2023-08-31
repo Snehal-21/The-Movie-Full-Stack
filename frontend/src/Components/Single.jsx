@@ -3,20 +3,24 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay, A11y } from "swiper/modules";
+import "../style/loader.css";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
+import Loader from "./Loader";
 
 
 const Single = () => {
     const [cast, setCast] = useState();
     const [Crew,setCrew]=useState();
     const [movieDetail, setMovieDetail] = useState();
+    const [loader,setLoader]=useState(true);
     const { id } = useParams();
     useEffect(() => {
         async function castDetail() {
+          setTimeout(async() => {
             const response = await axios.post("http://localhost:4000/movie/getcastDetail", {
                 id
             });
@@ -30,6 +34,8 @@ const Single = () => {
 
             const movieData = await movieResponse.data;
             setMovieDetail(movieData);
+            setLoader(false);
+          }, 1000);
 
         }
         castDetail();
@@ -48,8 +54,8 @@ const Single = () => {
     }
     return (
         <>
-            <div>
-                <div className="w-full bg-gray-800 flex flex-col " >
+           {loader ? (<Loader />):( <div>
+                <div className="w-full bg-gray-800 flex flex-col mt-[60px] " >
                     <div className="h-[500px] w-[95%] bg-gray-900 m-auto mb-5 mt-5 rounded-xl flex bg-gradient-to-r from-gray-950 to-gray-700">
                         <div className="w-[50%] h-full z-10 p-5">
                             <div className="h-1/2 w-full flex">
@@ -126,7 +132,8 @@ const Single = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>)}
+           
         </>
     )
 }
